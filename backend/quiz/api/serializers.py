@@ -34,7 +34,6 @@ class UserAnswersListSerializer(serializers.ModelSerializer):
     question_type = serializers.SerializerMethodField()
     quiz_title = serializers.SerializerMethodField()
 
-
     @staticmethod
     def get_question_text(instance):
         return instance.question.text

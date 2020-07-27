@@ -25,6 +25,9 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
+    class Meta:
+        unique_together = [['question', 'user_id']]
+
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     user_id = models.PositiveSmallIntegerField()
     text = models.TextField()
