@@ -7,14 +7,14 @@ class QuizSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Quiz
-        fields = "__all__"
+        exclude = ('id', )
 
 
 class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = "__all__"
+        exclude = ('id', )
 
 
 class AnswerSerializer(serializers.ModelSerializer):
@@ -28,7 +28,7 @@ class UserAnswersListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Answer
-        fields = "__all__"
+        exclude = ('id', )
 
     question_text = serializers.SerializerMethodField()
     question_type = serializers.SerializerMethodField()
