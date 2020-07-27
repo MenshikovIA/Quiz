@@ -1,8 +1,12 @@
 from rest_framework import viewsets, generics
 from rest_framework import permissions
 
-from .serializers import QuizSerializer, QuestionSerializer, AnswerSerializer, UserAnswersListSerializer
-from ..models import Quiz, Question, Answer
+from .serializers import QuizSerializer, \
+                         QuestionSerializer, \
+                         AnswerSerializer, \
+                         UserAnswersListSerializer, \
+                         QuestionOptionSerializer
+from ..models import Quiz, Question, Answer, QuestionOption
 
 
 class QuizViewSet(viewsets.ModelViewSet):
@@ -18,6 +22,12 @@ class QuestionAPIView(generics.ListAPIView):
     def get_queryset(self):
         pk = self.kwargs.get('pk')
         return Question.objects.filter(quiz__id=pk)
+
+
+class QuestionOptionViewSet(viewsets.ModelViewSet):
+    queryset = QuestionOption.objects.all()
+    serializer_class = QuestionOptionSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class AnswerCreateAPIView(generics.CreateAPIView):

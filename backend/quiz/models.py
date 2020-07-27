@@ -14,7 +14,7 @@ class Quiz(models.Model):
 
 
 class Question(models.Model):
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='questions')
     text = models.TextField(blank=True, null=True)
 
     TYPE_CHOICES = [('text', 'Текст'), ('one_option', 'Один вариант'), ('several_options', 'Несколько вариантов')]
@@ -24,13 +24,25 @@ class Question(models.Model):
         return self.text[:150]
 
 
+class QuestionOption(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='options')
+    text = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.text
+
+
 class Answer(models.Model):
     class Meta:
         unique_together = [['question', 'user_id']]
 
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     user_id = models.PositiveSmallIntegerField()
-    text = models.TextField()
+    text = models.TextField(blank=True, null=True)
+    options = models.ManyToManyField(QuestionOption, blank=True)
 
     def __str__(self):
-        return self.text[:150]
+        if self.text:
+            return self.text[:150]
+        else:
+            return str(self.id)

@@ -1,10 +1,11 @@
 from django.urls import path, include
-from .views import AnswerCreateAPIView, QuizViewSet, QuestionAPIView, UserAnswers
+from .views import AnswerCreateAPIView, QuizViewSet, QuestionAPIView, UserAnswers, QuestionOptionViewSet
 from rest_framework.routers import DefaultRouter
 
 
 router = DefaultRouter()
 router.register(r"quiz", QuizViewSet)
+router.register(r"q_options", QuestionOptionViewSet)
 
 
 urlpatterns = [
