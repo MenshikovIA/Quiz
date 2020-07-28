@@ -1,5 +1,2 @@
 __pycache__/
 *.pyc
-*.pyc
-backend/quiz/api/__pycache__/serializers.cpython-38.pyc
-*.pyc
